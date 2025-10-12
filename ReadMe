@@ -55,6 +55,8 @@ https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
 
 - Nome
 
+- Nome do mapa
+
 - Status (online/offline)
 
 - Jogadores ativos

@@ -9,9 +9,9 @@
 
 /* #---------Configuração---------# */
 const SERVERS = [
-  { id: "27886151", label: "0724 | SOUTH AMERICA - SP | 1st Person Only" },
-  { id: "29986609", label: "0742 | SOUTH AMERICA - SP | 1st Person Only" },
-  // { id: "OUTROID", label: "Outro Servidor" },
+  { id: "27886151", label: "0724 | SOUTH AMERICA - SP | 1st Person Only", map: "Chernarus" },
+  { id: "29986609", label: "0742 | SOUTH AMERICA - SP | 1st Person Only", map: "Livonia" },
+  // { id: "OUTROID", label: "Outro Servidor", map: "Desconhecido" },
 ];
 
 const API_PROXY = "https://api.allorigins.win/raw?url=";
@@ -67,6 +67,7 @@ function renderAll(state) {
     card.className = "server-card";
     card.innerHTML = `
       <h2>${s.label}</h2>
+      <p><b>Mapa:</b> ${s.map}</p>
       <p><b>Status:</b> <span class="${s.status}">${s.status}</span></p>
       <p><b>Players:</b> ${s.players}</p>
       <p><b>Server Time:</b> ${s.displayTime}</p>
@@ -87,6 +88,7 @@ async function refreshAll() {
       const baseTime = parseTimeString(attrs.details.time);
       serverState[s.id] = {
         label: s.label,
+        map: s.map, 
         status: attrs.status,
         players: attrs.players,
         baseTime,
@@ -95,6 +97,7 @@ async function refreshAll() {
     } catch (err) {
       serverState[s.id] = {
         label: s.label,
+        map: s.map,
         status: "erro",
         players: "-",
         baseTime: new Date(),
@@ -134,8 +137,8 @@ function updateDisplay() {
 // Atualiza a cada 1 segundo (tempo simulado)
 setInterval(updateDisplay, 1000);
 
-// Atualiza dados da API a cada 2 minutos
-setInterval(refreshAll, 120000);
+// Atualiza dados da API a cada 1 minutos
+setInterval(refreshAll, 60000);
 
 // Primeira execução
 refreshAll().then(() => updateDisplay());
