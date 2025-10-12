@@ -98,6 +98,12 @@ const SERVERS = [
 3. A página será atualizada automaticamente, exibindo o status em tempo real.
 
 🧱 Changelog
+v2.3
+
+- Links clicáveis para os mapas **Chernarus** e **Livonia**, abrindo diretamente no **dayz.xam.nu**.
+- Exibição automática da **versão do programa** no rodapé.
+- Corrigido efeito de “piscada” nos cards ao passar o mouse, causado pela recriação constante do HTML.
+
 v2.2
 
 - Atualizações de servidores agora ocorrem em paralelo (Promise.all) para evitar atrasos entre mapas.
