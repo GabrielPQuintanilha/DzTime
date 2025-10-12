@@ -1,26 +1,25 @@
-🕒 DzTime v2.0 — Single Script Edition
-
+🕒 DzTime v2.1 — Single Script Edition
 📘 Sobre
 
 DzTime é um web app criado por Gabriel Quintanilha que exibe informações em tempo real sobre servidores DayZ listados na BattleMetrics API.
 
-A versão 2.0 introduz suporte a múltiplos servidores, atualizações automáticas e cálculo de tempo simulado, tudo dentro de um único arquivo de script.
+A versão 2.1 aprimora o suporte a múltiplos servidores, adiciona o campo de mapa (Chernarus / Livonia), atualiza a lógica de tempo simulada para cada um deles e reduz o intervalo de atualização da API para 1 minuto.
 
 🧠 Objetivo
 
-Monitorar o horário interno de servidores DayZ e calcular o tempo restante até o anoitecer (18h) ou amanhecer (6h) dentro do jogo — auxiliando jogadores a planejarem login e ações com base no ciclo de tempo acelerado do servidor.
+Monitorar o horário interno de servidores DayZ e calcular o tempo restante até o anoitecer (18h) ou amanhecer (6h) dentro do jogo — auxiliando jogadores a planejarem login e ações com base no ciclo de tempo acelerado de cada mapa.
 
 ⚙️ Estrutura do código
 /* 
 #---------head--------------#
 # Nome: DzTime
 # Autor: Gabriel Quintanilha
-# Versão: 2.0 (Single Script Edition)
+# Versão: 2.1 (Single Script Edition)
 # Web app que mostra horário do server e informações relevantes
 */
 
 /* #---------Configuração---------# */
-// Define servidores monitorados, API proxy e container HTML.
+// Define servidores monitorados (id, nome, mapa), API proxy e container HTML.
 
 /* #---------Utilidades---------# */
 // Funções auxiliares: cálculo de tempo, formatação, simulação.
@@ -55,9 +54,9 @@ https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
 
 - Nome
 
-- Nome do mapa
+- Mapa (Chernarus / Livonia)
 
-- Status (online/offline)
+Status (online/offline)
 
 - Jogadores ativos
 
@@ -69,7 +68,26 @@ https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
 
 - Exibição: a cada 1 segundo
 
-- Dados da API: a cada 2 minutos
+- Dados da API: a cada 1 minuto
+
+🕒 Lógica de tempo no jogo
+
+A velocidade do tempo em DayZ varia conforme o mapa e o período do dia.
+O sistema do DzTime simula isso automaticamente:
+
+Mapa	Período	Multiplicador
+Chernarus	Dia (06h–18h)	4.2x
+Chernarus	Noite (18h–06h)	16.8x
+Livonia	Dia (06h–18h)	5.4x
+Livonia	Noite (18h–06h)	≈11.7x (5.4 × 2.17)
+
+Esses multiplicadores são aplicados automaticamente com base no campo map definido no array SERVERS.
+
+⚙️ Estrutura do array de servidores
+const SERVERS = [
+  { id: "27886151", label: "0724 | SOUTH AMERICA - SP | 1st Person Only", map: "Chernarus" },
+  { id: "29986609", label: "0742 | SOUTH AMERICA - SP | 1st Person Only", map: "Livonia" },
+];
 
 🚀 Instalação
 
@@ -79,20 +97,32 @@ https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
 
 3. A página será atualizada automaticamente, exibindo o status em tempo real.
 
-🧾 Licença
-
-Uso livre para fins educacionais e de hobby.
-Autor: Gabriel Quintanilha — Rio de Janeiro, 2025.
-
 🧱 Changelog
+v2.1
+
+- Adicionado campo map (Chernarus / Livonia).
+
+- Lógica de tempo ajustada para multiplicadores específicos de cada mapa.
+
+- Atualização da API reduzida de 2 minutos para 1 minuto.
+
+- Renderização aprimorada com exibição do nome do mapa.
+
 v2.0 — Single Script Edition
 
 - Código consolidado em um único arquivo de script.
 
 - Suporte a múltiplos servidores.
 
-- Atualização automática a cada 2 minutos.
-
 - Simulação de tempo baseada em multiplicadores diurno/noturno (4.2x / 16.8x).
 
 - Interface aprimorada e mais leve.
+
+## 🐞 Known Issues
+- Server Time chernarus não atualiza corretamente
+- restante até 06h|18h de chernarus não está correto
+
+🧾 Licença
+
+Uso livre para fins educacionais e de hobby.
+Autor: Gabriel Quintanilha — Rio de Janeiro, 2025.

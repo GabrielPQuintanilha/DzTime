@@ -28,18 +28,31 @@ function parseTimeString(str) {
 }
 
 // Retorna multiplicador baseado na hora
-function getSpeedMultiplier(hour) {
-  return (hour >= 6 && hour < 18) ? 4.2 : 16.8;
+function getSpeedMultiplier(hour, map) {
+  const isDay = hour >= 6 && hour < 18;
+
+  switch (map.toLowerCase()) {
+    case "chernarus":
+      return isDay ? 4.2 : 16.8;
+
+    case "livonia":
+      return isDay ? 5.4 : 5.4 * 2.17;
+
+    default:
+      return isDay ? 4.2 : 16.8; // padrão (Chernarus)
+  }
 }
 
+
 // Avança o tempo simulado com base no delta real
-function advanceSimulatedTime(baseTime, deltaMs) {
+function advanceSimulatedTime(baseTime, deltaMs, map) {
   const elapsedReal = deltaMs / 1000 / 60 / 60; // horas reais
   const hour = baseTime.getHours();
-  const speed = getSpeedMultiplier(hour);
+  const speed = getSpeedMultiplier(hour, map);
   const advanced = new Date(baseTime.getTime() + deltaMs * speed);
   return advanced;
 }
+
 
 // Formata "Xh Ymin"
 function formatRemaining(ms) {
@@ -112,7 +125,7 @@ function updateDisplay() {
   const updated = Object.entries(serverState).map(([id, s]) => {
     const now = Date.now();
     const delta = now - s.lastUpdate;
-    const simTime = advanceSimulatedTime(s.baseTime, delta);
+    const simTime = advanceSimulatedTime(s.baseTime, delta, s.map);
     const hours = simTime.getHours();
     const minutes = simTime.getMinutes().toString().padStart(2, "0");
     const displayTime = `${hours.toString().padStart(2, "0")}:${minutes}`;
@@ -121,7 +134,7 @@ function updateDisplay() {
     const nextLabel = (hours >= 6 && hours < 18) ? "18h" : "06h";
     const targetHour = (hours >= 6 && hours < 18) ? 18 : 30; // 30 = 6h do dia seguinte
     const diffH = targetHour - (hours + minutes / 60);
-    const remainingMs = diffH * 3600000 / getSpeedMultiplier(hours);
+    const remainingMs = diffH * 3600000 / getSpeedMultiplier(hours, s.map);
     
     return {
       ...s,
