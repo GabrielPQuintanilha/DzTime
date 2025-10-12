@@ -1,0 +1,87 @@
+# 🕒 DzTime v1.0
+
+## 📘 Sobre
+**DzTime** é um web app simples criado por **Gabriel Quintanilha** que exibe informações em tempo real sobre um servidor **DayZ** listado na **BattleMetrics API**.
+
+O projeto foi desenvolvido para ser hospedado no **GitHub Pages** e funcionar 24/7, mostrando:
+- Nome do servidor  
+- Quantidade atual de jogadores  
+- Status (online/offline)  
+- Horário do servidor (DayZ Time)
+
+---
+
+## 🧠 Objetivo
+Monitorar o horário interno do servidor de DayZ e calcular o tempo restante até as **18h (anoitecer)** ou **6h (amanhecer)** dentro do jogo, para ajudar jogadores a planejarem login e ações no momento certo.
+
+---
+
+## ⚙️ Estrutura do código
+O código segue um formato padronizado de organização:
+
+#---------head--------------#
+
+Nome: DzTime
+Autor: Gabriel Quintanilha
+
+#---------------------------#
+#---------Exemplo----------#
+
+Web app que mostra horário do server e informações relevantes
+
+#---------------------------#
+#---------Teste--------------#
+
+Verifica se a API pode ser acessada via fetch
+
+#---------------------------#
+#---------Variáveis---------#
+
+Define URL da API, containers HTML e formatação de data
+
+#---------------------------#
+#---------Execução----------#
+
+Faz requisição à API, mostra dados e calcula tempo restante
+
+#---------------------------#
+#---------Footer-----------#
+
+Exibe créditos e data de atualização
+
+#---------------------------#
+
+---
+
+## 🧩 Tecnologias
+- **HTML + CSS + JavaScript puro**
+- **BattleMetrics API**
+- **allOrigins** (proxy para contornar CORS)
+- **GitHub Pages** (deploy)
+
+---
+
+## 💡 Funcionamento
+1. O script faz uma requisição para:
+https://api.allorigins.win/get?url=https://api.battlemetrics.com/servers/27886151
+
+2. Obtém dados JSON e exibe:
+- Nome do servidor
+- Jogadores
+- Status
+- Horário
+- Tempo restante até 18h ou 6h
+3. Atualiza automaticamente a cada 1 minuto.
+
+---
+
+## 🚀 Instalação
+1. Faça fork deste repositório  
+2. Abra o arquivo `index.html` no navegador ou publique no GitHub Pages  
+3. O app será atualizado automaticamente.
+
+---
+
+## 🧾 Licença
+Uso livre para fins educacionais e de hobby.  
+Autor: **Gabriel Quintanilha** — Rio de Janeiro, 2025.
