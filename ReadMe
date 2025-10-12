@@ -1,55 +1,96 @@
-# 🕒 DzTime v2.0 — Modular Edition
+🕒 DzTime v2.0 — Single Script Edition
 
-## 📘 Sobre
-O **DzTime v2** é a segunda versão do projeto **DzTime**, que agora traz:
-- **Suporte a múltiplos servidores DayZ**
-- **Arquitetura modular e organizada**
-- **Simulação de tempo do jogo em tempo real**
+📘 Sobre
 
----
+DzTime é um web app criado por Gabriel Quintanilha que exibe informações em tempo real sobre servidores DayZ listados na BattleMetrics API.
 
-## 🧩 Novidades da versão 2.0
-✅ Estrutura modular — cada servidor é um módulo independente  
-✅ Pode ser expandido facilmente adicionando novos IDs da API  
-✅ Simulação realista de tempo **DayZ vs Tempo real**  
-✅ Organização aprimorada para manutenção e leitura  
+A versão 2.0 introduz suporte a múltiplos servidores, atualizações automáticas e cálculo de tempo simulado, tudo dentro de um único arquivo de script.
 
----
+🧠 Objetivo
 
-## 🧠 Cálculo do tempo do jogo
-O **tempo do servidor DayZ** é diferente do tempo real.  
-Esta versão considera a aceleração do tempo dentro do jogo:
+Monitorar o horário interno de servidores DayZ e calcular o tempo restante até o anoitecer (18h) ou amanhecer (6h) dentro do jogo — auxiliando jogadores a planejarem login e ações com base no ciclo de tempo acelerado do servidor.
 
-| Período | Intervalo | Velocidade |
-|----------|------------|-------------|
-| Dia | 06:00 → 18:00 | 4.2x mais rápido |
-| Noite | 18:00 → 06:00 | 16.8x mais rápido |
+⚙️ Estrutura do código
+/* 
+#---------head--------------#
+# Nome: DzTime
+# Autor: Gabriel Quintanilha
+# Versão: 2.0 (Single Script Edition)
+# Web app que mostra horário do server e informações relevantes
+*/
 
-Ou seja:
-- 1 hora real = 4,2 horas de jogo durante o dia  
-- 1 hora real = 16,8 horas de jogo durante a noite  
+/* #---------Configuração---------# */
+// Define servidores monitorados, API proxy e container HTML.
 
-O DzTime calcula o horário **em tempo real**, acompanhando a passagem natural do tempo, sem depender da atualização do BattleMetrics.
+/* #---------Utilidades---------# */
+// Funções auxiliares: cálculo de tempo, formatação, simulação.
 
----
+/* #---------Serviço da API---------# */
+// Consulta BattleMetrics para obter status, horário e jogadores.
 
-## ⚙️ Estrutura do código
-dztime-v1/
-├── index.html         # HTML principal (inclui <div id="output"> e carrega script.js e style.css)
-├── style.css          # CSS apresentado anteriormente (tema escuro, cards)
-└── script.js          # Código v1: fetch único via allorigins, parse simples e render
+/* #---------Renderização---------# */
+// Cria e atualiza os cards visuais no DOM.
 
----
+/* #---------Execução principal---------# */
+// Faz atualização automática dos dados e simulação de tempo.
 
-## 💡 Funcionamento
-1. O `servers.js` contém os IDs dos servidores:
-   ```js
-   export const SERVERS = [
-     { id: "27886151", nome: "0724 | SOUTH AMERICA - SP | 1st Person Only" },
-     { id: "12345678", nome: "Outro Servidor" }
-   ];
-2. O battleMetricsService.js faz as requisições à API
+🧩 Tecnologias
 
-3. Cada servidor gera um card no HTML
+- HTML + CSS + JavaScript puro
 
-4. O timeUtils.js calcula o horário do jogo conforme a aceleração do tempo real
+- BattleMetrics API
+
+- AllOrigins (proxy CORS)
+
+- GitHub Pages (deploy)
+
+💡 Funcionamento
+
+1. O script consulta os servidores definidos:
+
+https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
+
+
+2. Exibe para cada servidor:
+
+- Nome
+
+- Status (online/offline)
+
+- Jogadores ativos
+
+- Horário interno (tempo simulado)
+
+- Tempo restante até o próximo marco (06h ou 18h)
+
+3. Atualizações automáticas:
+
+- Exibição: a cada 1 segundo
+
+- Dados da API: a cada 2 minutos
+
+🚀 Instalação
+
+1. Faça fork deste repositório.
+
+2. Abra o arquivo index.html no navegador ou publique via GitHub Pages.
+
+3. A página será atualizada automaticamente, exibindo o status em tempo real.
+
+🧾 Licença
+
+Uso livre para fins educacionais e de hobby.
+Autor: Gabriel Quintanilha — Rio de Janeiro, 2025.
+
+🧱 Changelog
+v2.0 — Single Script Edition
+
+- Código consolidado em um único arquivo de script.
+
+- Suporte a múltiplos servidores.
+
+- Atualização automática a cada 2 minutos.
+
+- Simulação de tempo baseada em multiplicadores diurno/noturno (4.2x / 16.8x).
+
+- Interface aprimorada e mais leve.
