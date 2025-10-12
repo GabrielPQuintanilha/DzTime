@@ -45,13 +45,13 @@ function getSpeedMultiplier(hour, map) {
 
 
 // Avança o tempo simulado com base no delta real
-function advanceSimulatedTime(baseTime, deltaMs, map) {
+/* function advanceSimulatedTime(baseTime, deltaMs, map) {
   const elapsedReal = deltaMs / 1000 / 60 / 60; // horas reais
   const hour = baseTime.getHours();
   const speed = getSpeedMultiplier(hour, map);
   const advanced = new Date(baseTime.getTime() + deltaMs * speed);
   return advanced;
-}
+} */
 
 
 // Formata "Xh Ymin"
@@ -95,13 +95,15 @@ function renderAll(state) {
 const serverState = {}; // id -> { baseTime, lastUpdate, status, players, etc }
 
 async function refreshAll() {
-  for (const s of SERVERS) {
+  await Promise.all(SERVERS.map(async (s) => {
     try {
       const attrs = await fetchServer(s.id);
+
       const baseTime = parseTimeString(attrs.details.time);
+
       serverState[s.id] = {
         label: s.label,
-        map: s.map, 
+        map: s.map,
         status: attrs.status,
         players: attrs.players,
         baseTime,
@@ -118,24 +120,34 @@ async function refreshAll() {
       };
       console.error(`Erro ao buscar ${s.label}`, err);
     }
-  }
+  }));
 }
+
+
 
 function updateDisplay() {
   const updated = Object.entries(serverState).map(([id, s]) => {
-    const now = Date.now();
-    const delta = now - s.lastUpdate;
-    const simTime = advanceSimulatedTime(s.baseTime, delta, s.map);
+    const simTime = s.baseTime; // sempre o horário exato da API
     const hours = simTime.getHours();
     const minutes = simTime.getMinutes().toString().padStart(2, "0");
     const displayTime = `${hours.toString().padStart(2, "0")}:${minutes}`;
     
-    // Próximo marco: 06h ou 18h
-    const nextLabel = (hours >= 6 && hours < 18) ? "18h" : "06h";
-    const targetHour = (hours >= 6 && hours < 18) ? 18 : 30; // 30 = 6h do dia seguinte
+    // Próximo marco
+    let nextLabel, targetHour;
+    if (hours >= 6 && hours < 18) {
+      nextLabel = "18h";
+      targetHour = 18;
+    } else if (hours >= 18 && hours < 24) {
+      nextLabel = "06h";
+      targetHour = 30;
+    } else {
+      nextLabel = "06h";
+      targetHour = 6;
+    }
+
     const diffH = targetHour - (hours + minutes / 60);
     const remainingMs = diffH * 3600000 / getSpeedMultiplier(hours, s.map);
-    
+
     return {
       ...s,
       displayTime,
@@ -147,11 +159,15 @@ function updateDisplay() {
   renderAll(updated);
 }
 
-// Atualiza a cada 1 segundo (tempo simulado)
-setInterval(updateDisplay, 1000);
 
-// Atualiza dados da API a cada 1 minutos
-setInterval(refreshAll, 60000);
+
+
+// Atualiza a cada 500ms 
+setInterval(updateDisplay, 500);
+
+// Atualiza dados da API a cada 1 minuto
+setInterval(refreshAll, 30000);
+
 
 // Primeira execução
 refreshAll().then(() => updateDisplay());

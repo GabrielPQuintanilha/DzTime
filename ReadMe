@@ -98,6 +98,16 @@ const SERVERS = [
 3. A página será atualizada automaticamente, exibindo o status em tempo real.
 
 🧱 Changelog
+v2.2
+
+- Atualizações de servidores agora ocorrem em paralelo (Promise.all) para evitar atrasos entre mapas.
+
+- Removida a simulação de tempo local (advanceSimulatedTime), exibindo o horário exatamente como fornecido pela API BattleMetrics.
+
+- Intervalo de atualização da API ajustado para 1 minuto.
+
+- Código simplificado e mais estável para execução em GitHub Pages.
+
 v2.1
 
 - Adicionado campo map (Chernarus / Livonia).
@@ -119,8 +129,11 @@ v2.0 — Single Script Edition
 - Interface aprimorada e mais leve.
 
 ## 🐞 Known Issues
-- Server Time chernarus não atualiza corretamente
-- restante até 06h|18h de chernarus não está correto
+- BattleMetrics e proxies públicos (como AllOrigins) podem falhar temporariamente com erro CORS 500.
+
+- Caso o proxy esteja offline, o horário exibido pode congelar até a próxima atualização bem-sucedida.
+
+- O horário exibido é exato da API — sem compensação de defasagem de atualização.
 
 🧾 Licença
 
