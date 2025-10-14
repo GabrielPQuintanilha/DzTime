@@ -1,4 +1,4 @@
-🕒 DzTime v2.1 — Single Script Edition
+🕒 DzTime v2.4 — Single Script Edition
 📘 Sobre
 
 DzTime é um web app criado por Gabriel Quintanilha que exibe informações em tempo real sobre servidores DayZ listados na BattleMetrics API.
@@ -10,28 +10,15 @@ A versão 2.1 aprimora o suporte a múltiplos servidores, adiciona o campo de ma
 Monitorar o horário interno de servidores DayZ e calcular o tempo restante até o anoitecer (18h) ou amanhecer (6h) dentro do jogo — auxiliando jogadores a planejarem login e ações com base no ciclo de tempo acelerado de cada mapa.
 
 ⚙️ Estrutura do código
-/* 
-#---------head--------------#
-# Nome: DzTime
-# Autor: Gabriel Quintanilha
-# Versão: 2.1 (Single Script Edition)
-# Web app que mostra horário do server e informações relevantes
-*/
 
-/* #---------Configuração---------# */
-// Define servidores monitorados (id, nome, mapa), API proxy e container HTML.
-
-/* #---------Utilidades---------# */
-// Funções auxiliares: cálculo de tempo, formatação, simulação.
-
-/* #---------Serviço da API---------# */
-// Consulta BattleMetrics para obter status, horário e jogadores.
-
-/* #---------Renderização---------# */
-// Cria e atualiza os cards visuais no DOM.
-
-/* #---------Execução principal---------# */
-// Faz atualização automática dos dados e simulação de tempo.
+/DzTime
+ ├── index.html        → Estrutura principal da página
+ ├── style.css         → Estilos visuais
+ ├── main.js           → Execução principal e lógica de atualização
+ ├── api.js            → Comunicação com a API BattleMetrics
+ ├── config.js         → Configurações gerais e lista de servidores
+ ├── utils.js          → Funções auxiliares (tempo, formatação, cálculo)
+ └── render.js         → Renderização e atualização dos cards no DOM
 
 🧩 Tecnologias
 
@@ -56,7 +43,7 @@ https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
 
 - Mapa (Chernarus / Livonia)
 
-Status (online/offline)
+- Status (online/offline)
 
 - Jogadores ativos
 
@@ -98,6 +85,13 @@ const SERVERS = [
 3. A página será atualizada automaticamente, exibindo o status em tempo real.
 
 🧱 Changelog
+
+v2.4
+
+- Modularização do código
+- Correção dos links de mapa quebrados
+- Nome do servidor agora obtido dinamicamente da API
+
 v2.3
 
 - Links clicáveis para os mapas **Chernarus** e **Livonia**, abrindo diretamente no **dayz.xam.nu**.
