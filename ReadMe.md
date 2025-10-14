@@ -74,8 +74,8 @@ Esses multiplicadores são aplicados automaticamente com base no campo map defin
 
 ⚙️ Estrutura do array de servidores
 const SERVERS = [
-  { id: "27886151", label: "0724 | SOUTH AMERICA - SP | 1st Person Only", map: "Chernarus" },
-  { id: "29986609", label: "0742 | SOUTH AMERICA - SP | 1st Person Only", map: "Livonia" },
+  { id: "27886151", map: "Chernarus" },
+  { id: "29986609", map: "Livonia" },
 ];
 
 🚀 Instalação
