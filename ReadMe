@@ -5,6 +5,8 @@ DzTime é um web app criado por Gabriel Quintanilha que exibe informações em t
 
 A versão 2.1 aprimora o suporte a múltiplos servidores, adiciona o campo de mapa (Chernarus / Livonia), atualiza a lógica de tempo simulada para cada um deles e reduz o intervalo de atualização da API para 1 minuto.
 
+🔗 **Acesse aqui:** [https://gabrielpquintanilha.github.io/DzTime/](https://gabrielpquintanilha.github.io/DzTime/)
+
 🧠 Objetivo
 
 Monitorar o horário interno de servidores DayZ e calcular o tempo restante até o anoitecer (18h) ou amanhecer (6h) dentro do jogo — auxiliando jogadores a planejarem login e ações com base no ciclo de tempo acelerado de cada mapa.
