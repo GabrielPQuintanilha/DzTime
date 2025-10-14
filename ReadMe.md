@@ -13,6 +13,7 @@ Monitorar o horário interno de servidores DayZ e calcular o tempo restante até
 
 ⚙️ Estrutura do código
 
+```
 /DzTime
  ├── index.html        → Estrutura principal da página
  ├── style.css         → Estilos visuais
@@ -21,6 +22,7 @@ Monitorar o horário interno de servidores DayZ e calcular o tempo restante até
  ├── config.js         → Configurações gerais e lista de servidores
  ├── utils.js          → Funções auxiliares (tempo, formatação, cálculo)
  └── render.js         → Renderização e atualização dos cards no DOM
+```
 
 🧩 Tecnologias
 
@@ -37,7 +39,6 @@ Monitorar o horário interno de servidores DayZ e calcular o tempo restante até
 1. O script consulta os servidores definidos:
 
 https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
-
 
 2. Exibe para cada servidor:
 
@@ -64,19 +65,22 @@ https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
 A velocidade do tempo em DayZ varia conforme o mapa e o período do dia.
 O sistema do DzTime simula isso automaticamente:
 
-Mapa	Período	Multiplicador
-Chernarus	Dia (06h–18h)	4.2x
-Chernarus	Noite (18h–06h)	16.8x
-Livonia	Dia (06h–18h)	5.4x
-Livonia	Noite (18h–06h)	≈11.7x (5.4 × 2.17)
+| Mapa      | Período        | Multiplicador        |
+|------------|----------------|---------------------|
+| Chernarus  | Dia (06h–18h)  | 4.2x                |
+| Chernarus  | Noite (18h–06h)| 16.8x               |
+| Livonia    | Dia (06h–18h)  | 5.4x                |
+| Livonia    | Noite (18h–06h)| ≈11.7x (5.4 × 2.17) |
 
 Esses multiplicadores são aplicados automaticamente com base no campo map definido no array SERVERS.
 
 ⚙️ Estrutura do array de servidores
+```
 const SERVERS = [
   { id: "27886151", map: "Chernarus" },
   { id: "29986609", map: "Livonia" },
 ];
+```
 
 🚀 Instalação
 
