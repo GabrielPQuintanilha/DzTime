@@ -1,9 +1,9 @@
-🕒 DzTime v2.4 — Single Script Edition
+🕒 DzTime v2.5 — Single Script Edition
 📘 Sobre
 
 DzTime é um web app criado por Gabriel Quintanilha que exibe informações em tempo real sobre servidores DayZ listados na BattleMetrics API.
 
-A versão 2.1 aprimora o suporte a múltiplos servidores, adiciona o campo de mapa (Chernarus / Livonia), atualiza a lógica de tempo simulada para cada um deles e reduz o intervalo de atualização da API para 1 minuto.
+A versão 2.5 aprimora o suporte a múltiplos servidores, adiciona o campo de mapa (Chernarus / Livonia), atualiza a lógica de tempo simulada para cada um deles e reduz o intervalo de atualização da API para 1 minuto.
 
 🔗 **Acesse aqui:** [https://gabrielpquintanilha.github.io/DzTime/](https://gabrielpquintanilha.github.io/DzTime/)
 
@@ -36,9 +36,12 @@ Monitorar o horário interno de servidores DayZ e calcular o tempo restante até
 
 💡 Funcionamento
 
-1. O script consulta os servidores definidos:
+1. Consulta de servidores
+  
+- O script obtém dados dos servidores definidos utilizando proxies públicos para contornar restrições CORS.
 
-https://api.allorigins.win/raw?url=https://api.battlemetrics.com/servers/[ID]
+- Caso o proxy principal falhe, tenta automaticamente outros disponíveis
+(ex: AllOrigins, ThingProxy, CorsProxy).
 
 2. Exibe para cada servidor:
 
@@ -92,6 +95,11 @@ const SERVERS = [
 
 🧱 Changelog
 
+v2.5
+
+- Implementado sistema de fallback proxy, garantindo funcionamento mesmo se o proxy principal estiver fora do ar.
+- Adicionado nome fixo de servidor como alternativa quando a API BattleMetrics estiver inacessível, evitando falhas de renderização.
+
 v2.4
 
 - Modularização do código
@@ -135,7 +143,7 @@ v2.0 — Single Script Edition
 - Interface aprimorada e mais leve.
 
 ## 🐞 Known Issues
-- BattleMetrics e proxies públicos (como AllOrigins) podem falhar temporariamente com erro CORS 500.
+- BattleMetrics e proxies públicos podem falhar temporariamente com erro CORS 500.
 
 - Caso o proxy esteja offline, o horário exibido pode congelar até a próxima atualização bem-sucedida.
 

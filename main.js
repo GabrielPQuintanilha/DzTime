@@ -3,7 +3,7 @@
 # Nome: DzTime
 # Autor: Gabriel Quintanilha
 #---------------------------#
-# Versão: 2.4 (Single Script Edition)
+# Versão: 2.5 (Single Script Edition)
 # Web app que mostra horário do server e informações relevantes
 */
 
@@ -44,7 +44,7 @@ async function refreshAll() {
       };
     } catch (err) {
       serverState[s.id] = {
-        label:attrs.name,
+        label:"-",
         map: s.map,
         status: "erro",
         players: "-",
